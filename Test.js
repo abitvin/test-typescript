@@ -3,8 +3,8 @@
 // This file may not be copied, modified, or distributed except according to those terms.
 var Abitvin;
 (function (Abitvin) {
-    var UnitTests = (function () {
-        function UnitTests(name) {
+    var Test = (function () {
+        function Test(name) {
             this._totalFailed = 0;
             this._totalSuccess = 0;
             var tableEl = document.createElement("table");
@@ -44,7 +44,7 @@ var Abitvin;
             this._footRowEl.appendChild(cellEl3);
             this._footRowEl.appendChild(cellEl4);
         }
-        UnitTests.prototype.test = function (name, fn) {
+        Test.prototype.it = function (name, fn) {
             var _this = this;
             var rowEl = this._tbodyEl.insertRow();
             rowEl.classList.add("unit-test");
@@ -90,9 +90,10 @@ var Abitvin;
                 _this._footRowEl.children[3].setAttribute("data-checks", "" + (_this._totalFailed + _this._totalSuccess));
             };
             fn(assertFn, doneFn);
+            return this;
         };
-        return UnitTests;
+        return Test;
     }());
-    Abitvin.UnitTests = UnitTests;
+    Abitvin.Test = Test;
 })(Abitvin || (Abitvin = {}));
-//# sourceMappingURL=UnitTests.js.map
+//# sourceMappingURL=Test.js.map

@@ -3,51 +3,56 @@
 <head>
     <meta charset="utf-8" />
     <title>Unit tests</title>
-    <link rel="stylesheet" href="UnitTests.css" />
+    <link rel="stylesheet" href="Test.css" />
 </head>
 <body>
-    <script src="UnitTests.js"></script>
+    <script src="Test.js"></script>
     <script>
 
-        const math = new Abitvin.UnitTests("Math");
+        new Abitvin.Test("Math")
+            .it("Addition", (assert, done) =>
+            {
+                assert(1 + 1 === 2);
+                assert(3 + -10 === -7);
+                assert(-20 + -12 === -32);
+                done();
+            })
+            .it("Multiplication", (assert, done) =>
+            {
+                assert(2 * 3 === 6);
+                assert(-2 * 3 === -6);
+                assert(2 * -3 === -6);
+                assert(-2 * -3 === 6);
+                done();
+            });
 
-        math.test("Addition", (assert, done) =>
-        {
-            assert(1 + 1 === 2);
-            assert(3 + -10 === -7);
-            assert(-20 + -12 === -32);
-            done();
-        });
-
-        math.test("Multiplication", (assert, done) =>
-        {
-            assert(2 * 3 === 6);
-            assert(-2 * 3 === -6);
-            assert(2 * -3 === -6);
-            assert(-2 * -3 === 6);
-            done();
-        });
-
-        const time = new Abitvin.UnitTests("Timeout");
-
-        time.test("2000ms", (assert, done) =>
-        {
-            assert(true);
-
-            setTimeout(() =>
+        new Abitvin.Test("Async")
+            .it("Timeout 1000ms", (assert, done) =>
             {
                 assert(true);
+
+                setTimeout(() => {
+                    assert(true);
+                    done();
+                }, 1000);
+            })
+            .it("Promise 2000ms", (assert, done) => 
+            {
+                const p = new Promise(resolve =>
+                    setTimeout(() => resolve(1234), 2000));
+
+                p.then(data => {
+                    assert(data === 1234);
+                    done();
+                });
+            });
+
+        new Abitvin.Test("Failure")
+            .it("What does failure look like?", (assert, done) =>
+            {
+                assert(false);
                 done();
-            }, 2000);
-        });
-
-        const fail = new Abitvin.UnitTests("Failure");
-
-        fail.test("What does failure look like?", (assert, done) =>
-        {
-            assert(false);
-            done();
-        });
+            });
 
     </script>
 </body>

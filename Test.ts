@@ -8,7 +8,7 @@ namespace Abitvin
     type DoneFn = () => void;
     type TestFn = (assert: AssertFn, done: DoneFn) => void;
 
-    export class UnitTests
+    export class Test
     {
         private _footRowEl: HTMLTableRowElement;
         private _tbodyEl: HTMLTableSectionElement;
@@ -65,7 +65,7 @@ namespace Abitvin
             this._footRowEl.appendChild(cellEl4);
         }
 
-        public test(name: string, fn: TestFn): void
+        public it(name: string, fn: TestFn): this
         {
             const rowEl = this._tbodyEl.insertRow();
             rowEl.classList.add("unit-test");
@@ -124,6 +124,7 @@ namespace Abitvin
             };
 
             fn(assertFn, doneFn);
+            return this;
         }
     }
 }
