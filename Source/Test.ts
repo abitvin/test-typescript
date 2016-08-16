@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Abitvin <foss@abitvin.net>
+// Copyright (c) 2016 Vincent Van Ingen <foss@abitvin.net>
 // Licensed under the MIT license <LICENSE-MIT or http://opensource.org/licenses/MIT>
 // This file may not be copied, modified, or distributed except according to those terms.
 
@@ -123,7 +123,15 @@ namespace Abitvin
                 this._footRowEl.children[3].setAttribute("data-checks", `${this._totalFailed + this._totalSuccess}`);
             };
 
-            fn(assertFn, doneFn);
+            try {
+                fn(assertFn, doneFn);
+            }
+            catch(e) {
+                console.error(e);
+                failed++;
+                doneFn();
+            }
+
             return this;
         }
     }

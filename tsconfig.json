@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "target": "es6"
+    },
+    "files": [
+        "Source/Test.ts"
+    ]
+}
